@@ -1,0 +1,277 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("CIicker Simulator", "GrapeTheme")
+local Tab = Window:NewTab("Farm")
+local Section = Tab:NewSection("Auto Farm")
+-- tab 1
+Section:NewToggle("Auto farm", "Toggle", function(state)
+    if state then
+        getgenv().toggle = true
+
+while toggle == true do
+local args = {
+    [1] = {
+        ["manual"] = {
+            ["5.5068036012302e+25"] = 100
+        }
+    }
+}
+
+game:GetService("ReplicatedStorage").Clickerr:InvokeServer(unpack(args))
+wait(0.5)
+end
+    else
+        getgenv().toggle = false
+    end
+end)
+
+local Section = Tab:NewSection("Auto Rebirth")
+
+Section:NewDropdown("Amount", "Dropdown", {1, 5, 10, 50, 250, 1000, 5000, 25000, 125000, 500000, 3000000, 15000000, 50000000, 250000000, 1000000000, 5000000000, 25000000000, 50000000000, 150000000000, 750000000000, 3500000000000, 20000000000000}, function(v)
+    getgenv().amount = v
+end)
+
+Section:NewToggle("Auto Rebirth", "Toggle", function(state)
+    if state then
+        getgenv().toggle = true
+
+while toggle == true do
+local args = {
+    [1] = getgenv().amount,
+    [2] = false,
+    [3] = false
+}
+
+game:GetService("ReplicatedStorage").Events.Client.requestRebirth:FireServer(unpack(args))
+wait()
+end
+    else
+        getgenv().toggle = false
+    end
+end)
+
+local Section = Tab:NewSection("Auto Eggs")
+
+Section:NewDropdown("Eggs", "Dropdown", {"Sun God", "Earth", "Lava Dragon", "Treasure", "Space Guardian", "Treeland", "Ice Cream", "Frozen Arctic", "Atlantis", "Trophical", "Bee", "Galaxy", "Flame Overlord", "Basic", "20M Event"}, function(v)
+    getgenv().egg = v
+end)
+
+Section:NewToggle("Auto Open", "Toggle", function(state)
+    if state then
+        getgenv().toggle = true
+
+while toggle == true do
+local args = {
+    [1] = workspace.Eggs[getgenv().egg],
+    [2] = false,
+    [3] = false
+}
+
+game:GetService("ReplicatedStorage").Events.Client.purchaseEgg2:InvokeServer(unpack(args))
+wait()
+end
+    else
+        getgenv().toggle = false
+    end
+end)
+
+local Section = Tab:NewSection("Chests")
+
+Section:NewToggle("Auto Chests", "Toggle", function(state)
+    if state then
+getgenv().toggle = true
+
+while toggle == true do
+        local chest = game.Workspace.Chests
+local plr = game.Players.LocalPlayer.Character.HumanoidRootPart
+for i,v in pairs(chest:GetDescendants()) do
+if v:FindFirstChild("Detector") then
+v.Detector.CFrame = plr.CFrame
+wait()
+end
+end
+wait()
+end
+    else
+        getgenv().toggle = false
+    end
+end)
+
+local Section = Tab:NewSection("Auto Upgrades")
+
+Section:NewToggle("Double Jumps", "Toggle", function(state)
+    if state then
+        getgenv().toggle = true
+
+while toggle == true do
+local zone = game.Workspace.Zones
+
+for i,v in pairs(zone:GetChildren()) do
+local args = {
+    [1] = v,
+}
+
+game:GetService("ReplicatedStorage").Events.Client.upgrades.upgradeDoubleJump:FireServer(unpack(args))
+end
+wait()
+end
+    else
+        getgenv().toggle = false
+    end
+end)
+
+local Section = Tab:NewSection("Buy Rebirth Buttons")
+
+Section:NewDropdown("Amount", "Dropdown", {"50", "250", "1,000", "5,000", "25,000", "125,000", "500,000", "3,000,000", "15,000,000", "50,000,000", "250,000,000", "1,000,000,000", "5,000,000,000", "25,000,000,000", "50,000,000,000", "150,000,000,000", "750,000,000,000", "3,500,000,000,000", "20,000,000,000,000"}, function(v)
+    getgenv().button = v
+end)
+
+Section:NewButton("Buy", "Button", function()
+    local args = {
+    [1] = "Add "..getgenv().button.." rebirths button"
+}
+
+game:GetService("ReplicatedStorage").Events.Client.purchaseRebirthShopItem:FireServer(unpack(args))
+end)
+
+local Tab = Window:NewTab("Player")
+local Section = Tab:NewSection(game.Players.LocalPlayer.Name)
+
+Section:NewButton("Gamepass", "Button", function()
+    local boost = game.Players.LocalPlayer.Boosts
+
+for i,v in pairs(boost:GetDescendants()) do
+if v.Value == false then
+v.Value = true
+end
+end
+end)
+
+Section:NewToggle("Extra pet equipped", "Toggle", function(state)
+    if state then
+        getgenv().eggs = true
+
+local egg = game.Workspace.Eggs
+
+while eggs == true do
+for i,v in pairs(egg:GetChildren()) do
+local args = {
+    [1] = workspace.Eggs[v.Name],
+    [2] = false,
+    [3] = false
+}
+
+game:GetService("ReplicatedStorage").Events.Client.purchaseEgg2:InvokeServer(unpack(args))
+end
+wait(1)
+end
+    else
+        getgenv().eggs = false
+    end
+end)
+
+Section:NewButton("Auto Click", "Button", function()
+    --// Credits \\--
+--[[ Ezpi#0474 - Creator of this script ]]--
+
+--// Services \\--
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+
+--// Variables \\--
+local Player = Players.LocalPlayer
+local Enabled = false
+local Mouse = Player:GetMouse()
+local X, Y = 0, 0
+local LastC = Color3.new(1, 0, 0)
+local LastU = tick()
+
+--// Exploit Fix \\--
+if not pcall(function() return syn.protect_gui end) then
+    syn = {}
+    syn.protect_gui = function(A_1)
+        A_1.Parent = CoreGui
+    end
+end
+
+--// UI Library \\--
+local Library = loadstring(game:HttpGetAsync('https://pastebin.com/raw/edJT9EGX'))()
+local Window = Library:CreateWindow("AutoClicker by Ezpi")
+Enabled_1 = Window:AddColor({
+    text = 'Status:',
+    flag = "Ezpi_1",
+    color = Color3.new(1, 0, 0),
+    callback = function(A_1)
+        -- "Enabled" Color
+        local NewColor = Color3.new(0, 1, 0)
+        if Enabled == false then
+            NewColor = Color3.new(1, 0, 0)
+        end
+        if NewColor ~= Last or A_1 ~= NewColor then
+            Last = NewColor
+            Enabled_1:SetColor(NewColor)
+        end
+    end
+})
+Window:AddBind({
+    text = 'Toggle',
+    callback = function()
+        -- Toggle
+        Enabled = not Enabled
+        -- "Enabled" Color
+        local NewColor = Color3.new(0, 1, 0)
+        if Enabled == false then
+            NewColor = Color3.new(1, 0, 0)
+        end
+        if NewColor ~= Last then
+            Last = NewColor
+            Enabled_1:SetColor(NewColor)
+        end
+        -- Click Position
+        if Enabled then
+            -- Update Mouse Pos
+            X, Y = Mouse.X, Mouse.Y + 10
+            -- Update Box
+            Box_1:SetValue()
+        else
+            X, Y = 0, 0
+            Box_1:SetValue()
+        end
+        -- AutoClick
+        while Enabled do
+            VirtualInputManager:SendMouseButtonEvent(X, Y, 0, true, game, 1)
+            VirtualInputManager:SendMouseButtonEvent(X, Y, 0, false, game, 1)
+            wait(Library.flags.Interval)
+        end
+    end
+})
+Window:AddSlider({
+    text = 'Interval',
+    min = 0.01,
+    max = 2,
+    value = 1,
+    float = 0.01
+})
+Box_1 = Window:AddBox({
+    text = "AutoClick Position:",
+    value = "X: " .. X .. ", Y: " .. Y,
+    callback = function()
+        if tick()-LastU > 0.1 then
+            LastU = tick()
+            Box_1:SetValue("X: " .. X .. ", Y: " .. Y)
+        end
+    end
+})
+Library:Init()
+end)
+
+Section:NewSlider("WalkSpeed", "Slider", 500, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+
+Section:NewSlider("JumpPower", "Slider", 10000, 0, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+--
+local Tab = Window:NewTab("Credit")
+local Section = Tab:NewSection("Db#2050")
